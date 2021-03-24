@@ -1,5 +1,6 @@
 from libro import Libro
 from autor import Autor
+
 def get_list(fichero):
     
     f = open(fichero, mode="rt", encoding="utf-8")
@@ -22,7 +23,18 @@ def generar_diccionario(string):
     return dic
 
 
+def mas_antiguos(lista, anyo):
 
+    listaux = []
+
+    if anyo < 1900 or anyo > 2021:
+        raise ValueError("Año no válido")
+    for libro in lista:
+        if libro.get_anyo() <= anyo:
+            listaux.append(libro.get_titulo()) 
+    return listaux
+   
+        
 # --------------------MAIN---------------------
 print(get_list("fichero.txt"))
 try:
@@ -34,3 +46,10 @@ l1 = Libro(autor = Autor(id_autor = 1, nombre = "Miguel de Cervantes", apellido 
 l2 = Libro(autor = Autor(id_autor = 2, nombre = "Miguel", apellido = "Jose"), titulo = "Doña Quijota", anyo = 1901)
 l3 = Libro(autor = Autor(id_autor = 3, nombre = "Miguelito", apellido = "Jose Paco"), titulo = "Don Moderno 2040", anyo = 2040)
 l4 = Libro(autor = Autor(id_autor = 4, nombre = "Alejandro", apellido = "Maria"), titulo = "Harry Potter 2020", anyo = 2020) 
+lista = [l1, l2, l3, l4]
+try:
+    print(mas_antiguos(lista, 2022))
+except ValueError:
+    print("ValueError: Fecha no valida")
+print(mas_antiguos(lista, 2019))
+    
